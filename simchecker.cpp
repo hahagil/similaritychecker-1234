@@ -3,9 +3,17 @@
 #include <iterator>
 #include <set>
 
+int SimChecker::longerLength(const std::string& a, const std::string& b) const {
+    return static_cast<int>(std::max(a.size(), b.size()));
+}
+
+int SimChecker::shorterLength(const std::string& a, const std::string& b) const {
+    return static_cast<int>(std::min(a.size(), b.size()));
+}
+
 double SimChecker::calcLengthScore(const std::string& a, const std::string& b) const {
-    int longer  = static_cast<int>(std::max(a.size(), b.size()));
-    int shorter = static_cast<int>(std::min(a.size(), b.size()));
+    int longer  = longerLength(a, b);
+    int shorter = shorterLength(a, b);
 
     if (longer >= 2 * shorter)
         return 0.0;
