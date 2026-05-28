@@ -1,4 +1,5 @@
 #pragma once
+#include <set>
 #include <string>
 
 class SimChecker {
@@ -10,4 +11,5 @@ public:
 private:
     int longerLength(const std::string& a, const std::string& b) const;
     int shorterLength(const std::string& a, const std::string& b) const;
+    std::set<char> upperAlphaSet(const std::string& s) const;
 };

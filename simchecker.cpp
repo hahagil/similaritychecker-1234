@@ -22,10 +22,17 @@ double SimChecker::calcLengthScore(const std::string& a, const std::string& b) c
     return (1.0 - static_cast<double>(gap) / shorter) * 60;
 }
 
+std::set<char> SimChecker::upperAlphaSet(const std::string& s) const {
+    std::set<char> result;
+    for (char c : s)
+        if (std::isupper(static_cast<unsigned char>(c)))
+            result.insert(c);
+    return result;
+}
+
 double SimChecker::calcAlphaScore(const std::string& a, const std::string& b) const {
-    std::set<char> setA, setB;
-    for (char c : a) if (std::isupper(static_cast<unsigned char>(c))) setA.insert(c);
-    for (char c : b) if (std::isupper(static_cast<unsigned char>(c))) setB.insert(c);
+    std::set<char> setA = upperAlphaSet(a);
+    std::set<char> setB = upperAlphaSet(b);
 
     std::set<char> unionSet, intersectSet;
     std::set_union(setA.begin(), setA.end(), setB.begin(), setB.end(),
