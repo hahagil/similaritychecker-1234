@@ -4,4 +4,6 @@
 class SimChecker {
 public:
     double calcLengthScore(const std::string& a, const std::string& b) const;
+    double calcAlphaScore(const std::string& a, const std::string& b) const;
+    double calcScore(const std::string& a, const std::string& b) const;
 };
