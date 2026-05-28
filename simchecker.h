@@ -13,4 +13,5 @@ private:
     int longerLength(const std::string& a, const std::string& b) const;
     int shorterLength(const std::string& a, const std::string& b) const;
     void validateUpperOnly(const std::string& s) const;
+    int intersectSize(const std::set<char>& a, const std::set<char>& b) const;
 };

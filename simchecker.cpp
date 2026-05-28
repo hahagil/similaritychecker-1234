@@ -22,6 +22,13 @@ double SimChecker::calcLengthScore(const std::string& a, const std::string& b) c
     return (1.0 - static_cast<double>(gap) / shorter) * 60;
 }
 
+int SimChecker::intersectSize(const std::set<char>& a, const std::set<char>& b) const {
+    std::set<char> intersectSet;
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(),
+                          std::inserter(intersectSet, intersectSet.begin()));
+    return static_cast<int>(intersectSet.size());
+}
+
 void SimChecker::validateUpperOnly(const std::string& s) const {
     for (char c : s)
         if (!std::isupper(static_cast<unsigned char>(c)))
@@ -35,11 +42,7 @@ double SimChecker::calcAlphaScore(const std::string& a, const std::string& b) co
     std::set<char> setA(a.begin(), a.end());
     std::set<char> setB(b.begin(), b.end());
 
-    std::set<char> intersectSet;
-    std::set_intersection(setA.begin(), setA.end(), setB.begin(), setB.end(),
-                          std::inserter(intersectSet, intersectSet.begin()));
-
-    int sameCnt  = static_cast<int>(intersectSet.size());
+    int sameCnt  = intersectSize(setA, setB);
     int totalCnt = static_cast<int>(setA.size() + setB.size()) - sameCnt;
 
     if (totalCnt == 0)
