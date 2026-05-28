@@ -35,14 +35,12 @@ double SimChecker::calcAlphaScore(const std::string& a, const std::string& b) co
     std::set<char> setA(a.begin(), a.end());
     std::set<char> setB(b.begin(), b.end());
 
-    std::set<char> unionSet, intersectSet;
-    std::set_union(setA.begin(), setA.end(), setB.begin(), setB.end(),
-                   std::inserter(unionSet, unionSet.begin()));
+    std::set<char> intersectSet;
     std::set_intersection(setA.begin(), setA.end(), setB.begin(), setB.end(),
                           std::inserter(intersectSet, intersectSet.begin()));
 
-    int totalCnt = static_cast<int>(unionSet.size());
     int sameCnt  = static_cast<int>(intersectSet.size());
+    int totalCnt = static_cast<int>(setA.size() + setB.size()) - sameCnt;
 
     if (totalCnt == 0)
         return 0.0;
