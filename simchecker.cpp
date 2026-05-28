@@ -1,5 +1,6 @@
 #include "simchecker.h"
 #include <algorithm>
+#include <iterator>
 #include <set>
 
 double SimChecker::calcLengthScore(const std::string& a, const std::string& b) const {
