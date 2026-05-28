@@ -24,24 +24,16 @@ double SimChecker::calcLengthScore(const std::string& a, const std::string& b) c
 
 void SimChecker::validateUpperOnly(const std::string& s) const {
     for (char c : s)
-        if (std::islower(static_cast<unsigned char>(c)))
+        if (!std::isupper(static_cast<unsigned char>(c)))
             throw std::invalid_argument("Input must contain only uppercase letters");
-}
-
-std::set<char> SimChecker::upperAlphaSet(const std::string& s) const {
-    std::set<char> result;
-    for (char c : s)
-        if (std::isupper(static_cast<unsigned char>(c)))
-            result.insert(c);
-    return result;
 }
 
 double SimChecker::calcAlphaScore(const std::string& a, const std::string& b) const {
     validateUpperOnly(a);
     validateUpperOnly(b);
 
-    std::set<char> setA = upperAlphaSet(a);
-    std::set<char> setB = upperAlphaSet(b);
+    std::set<char> setA(a.begin(), a.end());
+    std::set<char> setB(b.begin(), b.end());
 
     std::set<char> unionSet, intersectSet;
     std::set_union(setA.begin(), setA.end(), setB.begin(), setB.end(),

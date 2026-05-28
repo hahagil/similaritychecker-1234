@@ -55,6 +55,10 @@ TEST_F(SimCheckerAlphaScore, LowercaseInput_ThrowsInvalidArgument) {
     EXPECT_THROW(checker.calcAlphaScore("abc", "ABC"), std::invalid_argument);
 }
 
+TEST_F(SimCheckerAlphaScore, NonAlphaInput_ThrowsInvalidArgument) {
+    EXPECT_THROW(checker.calcAlphaScore("ABC1", "DEF"), std::invalid_argument);
+}
+
 TEST_F(SimCheckerTotalScore, IdenticalStrings_Returns100) {
     // LengthScore=60.0 (5:5) + AlphaScore=40.0 ({H,E,L,O} identical) = 100.0
     EXPECT_DOUBLE_EQ(100.0, checker.calcScore("HELLO", "HELLO"));
