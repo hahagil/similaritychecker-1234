@@ -51,9 +51,8 @@ TEST_F(SimCheckerAlphaScore, PartialOverlap_ReturnsPartialScore) {
     EXPECT_DOUBLE_EQ(20.0, checker.calcAlphaScore("ABC", "BCD"));
 }
 
-TEST_F(SimCheckerAlphaScore, IgnoresLowercase) {
-    // "abc" uppercase={}, "ABC" uppercase={A,B,C}: TotalCnt=3, SameCnt=0, (0/3)*40 = 0.0
-    EXPECT_DOUBLE_EQ(0.0, checker.calcAlphaScore("abc", "ABC"));
+TEST_F(SimCheckerAlphaScore, LowercaseInput_ThrowsInvalidArgument) {
+    EXPECT_THROW(checker.calcAlphaScore("abc", "ABC"), std::invalid_argument);
 }
 
 TEST_F(SimCheckerTotalScore, IdenticalStrings_Returns100) {
@@ -64,4 +63,8 @@ TEST_F(SimCheckerTotalScore, IdenticalStrings_Returns100) {
 TEST_F(SimCheckerTotalScore, DoubleLengthWithPartialAlpha_ReturnsAlphaScoreOnly) {
     // LengthScore=0.0 (2:4, 2x), AlphaScore: {A,B} vs {A,B,C,D} TotalCnt=4, SameCnt=2 -> 20.0
     EXPECT_DOUBLE_EQ(20.0, checker.calcScore("AB", "ABCD"));
+}
+
+TEST_F(SimCheckerTotalScore, LowercaseInput_ThrowsInvalidArgument) {
+    EXPECT_THROW(checker.calcScore("hello", "HELLO"), std::invalid_argument);
 }
